@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="date" content=''>
+        <title>A modest tutorial…</title>
+    </head>
+    <body>
+        <h1 id="hello-world">Hello, World!</h1>
+        <p>This is an example of how to quickly serve an Apache server
+        through a docker container.</p>
+        <h2 id="the-necessary-files">The necessary files</h2>
+        <p>For this example, we’ll be using the following file
+        structure:</p>
+        <pre class="text"><code>./
+├── compose.yaml
+├── public-html/
+│   └── index.html
+├── readme.md
+└── template.html</code></pre>
+        <p>with the contents of <code>compose.yaml</code> as follows</p>
+        <div class="sourceCode" id="cb2"><pre
+        class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;3.9&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">apache</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> httpd:latest</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">container_name</span><span class="kw">:</span><span class="at"> my-apache-app</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&#39;80:80&#39;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./public-html:/usr/local/apache2/htdocs</span></span></code></pre></div>
+        <p>Note that the <code>template.html</code> file was used with
+        <code>pandoc</code> to generate the
+        <code>public-html/index.html</code> page.</p>
+        <h2 id="starting-the-server">Starting the server</h2>
+        <p>To start serving, first, <code>cd</code> to the same level as
+        the <code>compose.yaml</code> file and then run</p>
+        <div class="sourceCode" id="cb3"><pre
+        class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose up <span class="at">-d</span></span></code></pre></div>
+        <p>Assuming everything is working fine, your container should be
+        up and visible if running</p>
+        <div class="sourceCode" id="cb4"><pre
+        class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container ls</span></code></pre></div>
+        <p>To check the served page, open an internet browser and type
+        the ip of the machine running the docker container, under the
+        default port <code>80</code>. If you installed <code>ip</code>,
+        check the machine’s ip with</p>
+        <div class="sourceCode" id="cb5"><pre
+        class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ip</span> <span class="at">-br</span> addr</span></code></pre></div>
+        <p>Hopefully, if everything went <em>just right</em>, you should
+        be seeing this documentation on your browser.</p>
+    </body>
+</html>
