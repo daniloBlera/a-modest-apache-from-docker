@@ -1,5 +1,3 @@
-% A modest tutorial...
-
 # Hello, World!
 
 This is an example of how to quickly serve an Apache server
